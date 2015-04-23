@@ -1533,7 +1533,12 @@ Gothrough: PicBarLP3.Visible = True
                     rg8.Select()
                     rg8.Delete()
                     xlWsheetDSS.Range("W:W").EntireColumn.Delete()
-                    xlWsheetDSS.Range("A639:A640").EntireRow.Delete()
+
+                    Dim lrow8 As Long = xlWsheetDSS.Range("A8").End(Excel.XlDirection.xlDown).Row
+                    Dim r8a As Integer = lrow8 + 1
+                    Dim r8b As Integer = lrow8 + 2
+                    Dim cr8 As String = "A" & r8a & ":A" & r8b
+                    xlWsheetDSS.Range(cr8).EntireRow.Delete()
 
                     Dim lrow1 As Long
                     lrow1 = xlWsheetDSS.Range("B65536").End(Excel.XlDirection.xlUp).Row
@@ -1571,7 +1576,15 @@ Gothrough: PicBarLP3.Visible = True
                     cellrange4.Select()
                     cellrange4.Delete(Shift:=Excel.XlDirection.xlToLeft)
 
-                    xlWsheetDSS.Range("F639:F642").Copy(xlWsheetDSS.Range("B639:B642"))
+                    Dim lrow9 As Long = xlWsheetDSS.Range("F1").End(Excel.XlDirection.xlDown).Row
+                    Dim r9 As Integer = lrow9 + 3
+                    Dim cr9 As String = "F" & lrow9 & ":F" & r9
+
+                    Dim lrow10 As Long = xlWsheetDSS.Range("A8").End(Excel.XlDirection.xlDown).Row
+                    Dim r10 As Integer = lrow10 - 3
+                    Dim cr10 As String = "B" & lrow10 & ":B" & r10
+
+                    xlWsheetDSS.Range(cr9).Copy(xlWsheetDSS.Range(cr10))
                     xlWsheetDSS.Range("F:F").EntireColumn.Delete()
 
                     Dim lrow5 As Long = xlWsheetDSS.Range("F65536").End(Excel.XlDirection.xlUp).Row
@@ -1739,7 +1752,7 @@ Gothrough: PicBarLP3.Visible = True
                     xlWsheetDSS.Range("A7").Value = paramhead3
                     xlWsheetDSS.Range("A7").EntireColumn.Font.Name = "Calibri"
 
-                    Dim rg1, rg2, rg3, rg4, rg5, rg6, rg7 As Excel.Range
+                    Dim rg1, rg2, rg3, rg4, rg5, rg6 As Excel.Range
                     rg1 = xlWsheetDSS.Range("B:C")
                     rg1.Select()
                     rg1.Delete()
@@ -1794,5 +1807,155 @@ Gothrough: PicBarLP3.Visible = True
     Private Sub btnNeu_DSS_Click(sender As Object, e As EventArgs) Handles btnNeu_DSS.Click
         PicBar_DSS.Visible = True
         bwDSS.RunWorkerAsync()
+    End Sub
+
+    Private Sub btnBrowProm_src_Click(sender As Object, e As EventArgs) Handles btnBrowProm_src.Click
+        Dim PrmpathSrc As String
+        If OFD_src.ShowDialog = DialogResult.OK Then
+            PrmpathSrc = OFD_src.FileName
+            txtPromo_src.Text = PrmpathSrc
+        End If
+        If txtProm_dest.Text <> "" Then
+            btnNeu_Promo.Enabled = True
+        Else
+            btnNeu_Promo.Enabled = False
+        End If
+    End Sub
+
+    Private Sub btnBrowPromo_dest_Click(sender As Object, e As EventArgs) Handles btnBrowPromo_dest.Click
+        Dim datenow As DateTime = DateTime.Now
+        Dim filename As String
+        filename = "Neutralize_ListOfPromo_" & datenow.ToString("ddMMyyyy_HHmm")
+        SFD_Dest.FileName = filename
+
+        Dim Prompath_Dest As String
+        If SFD_Dest.ShowDialog = DialogResult.OK Then
+            Prompath_Dest = SFD_Dest.FileName
+            txtProm_dest.Text = Prompath_Dest
+        End If
+        If txtPromo_src.Text <> "" Then
+            btnNeu_Promo.Enabled = True
+        Else
+            btnNeu_Promo.Enabled = False
+        End If
+        If txtProm_dest.Text <> "" Then
+            btnNeu_Promo.Enabled = True
+        Else
+            btnNeu_Promo.Enabled = False
+        End If
+    End Sub
+
+    Private Sub bwPromo_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwPromo.DoWork
+        Dim xlAppPRM As Excel.Application
+        Dim xlWbookPRM As Excel.Workbook
+        Dim xlWsheetPRM As Excel.Worksheet
+
+        Try
+            xlAppPRM = New Excel.Application
+            xlWbookPRM = xlAppPRM.Workbooks.Open(txtPromo_src.Text)
+            xlWsheetPRM = xlWbookPRM.Worksheets("UID List Of Promotion Report")
+
+            xlWsheetPRM.UsedRange.UnMerge()
+            xlWsheetPRM.UsedRange.WrapText = False
+            xlWsheetPRM.UsedRange.ColumnWidth = 15
+            xlWsheetPRM.UsedRange.RowHeight = 15
+
+            Dim rg_head_cut1 As Excel.Range = xlWsheetPRM.Range("B2")
+            Dim rg_head_paste1 As Excel.Range = xlWsheetPRM.Range("A2")
+            rg_head_cut1.Select()
+            rg_head_cut1.Cut(rg_head_paste1)
+
+            Dim rg_head_cut2 As Excel.Range = xlWsheetPRM.Range("B4")
+            Dim rg_head_paste2 As Excel.Range = xlWsheetPRM.Range("A3")
+            rg_head_cut2.Select()
+            rg_head_cut2.Cut(rg_head_paste2)
+
+            xlWsheetPRM.Range("A2").RowHeight = 27
+
+            Dim paramhead1, paramhead2, paramhead3 As String
+            paramhead1 = xlWsheetPRM.Range("C6").Value & " " & xlWsheetPRM.Range("F6").Value & "; "
+            paramhead1 = paramhead1 & xlWsheetPRM.Range("H6").Value & " " & xlWsheetPRM.Range("J6").Value & "; "
+
+            paramhead2 = xlWsheetPRM.Range("O6").Value & " " & xlWsheetPRM.Range("R6").Value & "; "
+            paramhead2 = paramhead2 & xlWsheetPRM.Range("U6").Value & " " & xlWsheetPRM.Range("X6").Value & "; "
+
+            paramhead3 = xlWsheetPRM.Range("C8").Value & " " & xlWsheetPRM.Range("F8").Value
+
+            xlWsheetPRM.Range("A5").Value = paramhead1
+            xlWsheetPRM.Range("A5").EntireRow.Font.Name = "Calibri"
+            xlWsheetPRM.Range("A6").Value = paramhead2
+            xlWsheetPRM.Range("A6").EntireRow.Font.Name = "Calibri"
+            xlWsheetPRM.Range("A7").Value = paramhead3
+            xlWsheetPRM.Range("A7").EntireRow.Font.Name = "Calibri"
+
+            Dim rg1, rg2, rg3, rg4, rg5, rg6 As Excel.Range
+            rg1 = xlWsheetPRM.Range("B:C")
+            rg1.Select()
+            rg1.Delete()
+            rg2 = xlWsheetPRM.Range("C:H")
+            rg2.Select()
+            rg2.Delete()
+            rg3 = xlWsheetPRM.Range("D:E")
+            rg3.Select()
+            rg3.Delete()
+            rg4 = xlWsheetPRM.Range("E:F")
+            rg4.Select()
+            rg4.Delete()
+            xlWsheetPRM.Range("F:F").EntireColumn.Delete()
+            rg5 = xlWsheetPRM.Range("G:H")
+            rg5.Select()
+            rg5.Delete()
+            rg6 = xlWsheetPRM.Range("H:J")
+            rg6.Select()
+            rg6.Delete()
+            xlWsheetPRM.Range("J:J").EntireColumn.Delete()
+
+            xlWsheetPRM.Range("A11:A12").Merge()
+            xlWsheetPRM.Range("A11:A12").HorizontalAlignment = Excel.Constants.xlCenter
+            xlWsheetPRM.Range("B11:B12").Merge()
+            xlWsheetPRM.Range("B11:B12").HorizontalAlignment = Excel.Constants.xlCenter
+            xlWsheetPRM.Range("C11:C12").Merge()
+            xlWsheetPRM.Range("C11:C12").HorizontalAlignment = Excel.Constants.xlCenter
+            xlWsheetPRM.Range("D11:D12").Merge()
+            xlWsheetPRM.Range("D11:D12").HorizontalAlignment = Excel.Constants.xlCenter
+            xlWsheetPRM.Range("E11:F11").Merge()
+            xlWsheetPRM.Range("E11:F11").HorizontalAlignment = Excel.Constants.xlCenter
+            xlWsheetPRM.Range("G11:I11").Merge()
+            xlWsheetPRM.Range("G11:I11").HorizontalAlignment = Excel.Constants.xlCenter
+            xlWsheetPRM.Range("J11:J12").Merge()
+            xlWsheetPRM.Range("J11:J12").HorizontalAlignment = Excel.Constants.xlCenter
+            xlWsheetPRM.Range("K11:K12").Merge()
+            xlWsheetPRM.Range("K11:K12").HorizontalAlignment = Excel.Constants.xlCenter
+            xlWsheetPRM.Range("L11:M11").Merge()
+            xlWsheetPRM.Range("L11:M11").HorizontalAlignment = Excel.Constants.xlCenter
+
+            xlWbookPRM.SaveAs(txtProm_dest.Text)
+            xlWbookPRM.Close()
+            xlAppPRM.Quit()
+
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlWsheetPRM)
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlWbookPRM)
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlAppPRM)
+
+            xlWsheetPRM = Nothing
+            xlWbookPRM = Nothing
+            xlAppPRM = Nothing
+
+            MessageBox.Show("Neutralize Completed", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            MessageBox.Show("Error : " & ex.Message.ToString, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub bwPromo_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwPromo.RunWorkerCompleted
+        PicBar_Promo.Visible = False
+        btnNeu_Promo.Enabled = False
+        txtProm_dest.Text = ""
+        txtPromo_src.Text = ""
+    End Sub
+
+    Private Sub btnNeu_Promo_Click(sender As Object, e As EventArgs) Handles btnNeu_Promo.Click
+        PicBar_Promo.Visible = True
+        bwPromo.RunWorkerAsync()
     End Sub
 End Class

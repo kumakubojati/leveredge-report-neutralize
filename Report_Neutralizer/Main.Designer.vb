@@ -114,9 +114,6 @@ Partial Class Main
         Me.BWSalesPerf = New System.ComponentModel.BackgroundWorker()
         Me.BWDSM = New System.ComponentModel.BackgroundWorker()
         Me.tbListPromo = New System.Windows.Forms.TabPage()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.rbPromUtil = New System.Windows.Forms.RadioButton()
-        Me.rbPromList = New System.Windows.Forms.RadioButton()
         Me.PicBar_Promo = New System.Windows.Forms.PictureBox()
         Me.btnBrowPromo_dest = New System.Windows.Forms.Button()
         Me.txtProm_dest = New System.Windows.Forms.TextBox()
@@ -128,6 +125,7 @@ Partial Class Main
         Me.tcListPromo = New System.Windows.Forms.TabControl()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.bwDSS = New System.ComponentModel.BackgroundWorker()
+        Me.bwPromo = New System.ComponentModel.BackgroundWorker()
         Me.TabCon.SuspendLayout()
         Me.TabOutMas.SuspendLayout()
         CType(Me.PicBar, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -149,7 +147,6 @@ Partial Class Main
         Me.tpDailyStockMutation.SuspendLayout()
         CType(Me.PicBar_DSM, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbListPromo.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         CType(Me.PicBar_Promo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tcListPromo.SuspendLayout()
         Me.SuspendLayout()
@@ -1049,7 +1046,6 @@ Partial Class Main
         'tbListPromo
         '
         Me.tbListPromo.BackColor = System.Drawing.Color.White
-        Me.tbListPromo.Controls.Add(Me.GroupBox1)
         Me.tbListPromo.Controls.Add(Me.PicBar_Promo)
         Me.tbListPromo.Controls.Add(Me.btnBrowPromo_dest)
         Me.tbListPromo.Controls.Add(Me.txtProm_dest)
@@ -1061,47 +1057,14 @@ Partial Class Main
         Me.tbListPromo.Location = New System.Drawing.Point(4, 23)
         Me.tbListPromo.Name = "tbListPromo"
         Me.tbListPromo.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbListPromo.Size = New System.Drawing.Size(403, 207)
+        Me.tbListPromo.Size = New System.Drawing.Size(403, 162)
         Me.tbListPromo.TabIndex = 0
-        Me.tbListPromo.Text = "List Of Promotion/Utilization"
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.rbPromUtil)
-        Me.GroupBox1.Controls.Add(Me.rbPromList)
-        Me.GroupBox1.Location = New System.Drawing.Point(4, 6)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(261, 53)
-        Me.GroupBox1.TabIndex = 13
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Report Kind"
-        '
-        'rbPromUtil
-        '
-        Me.rbPromUtil.AutoSize = True
-        Me.rbPromUtil.Location = New System.Drawing.Point(119, 21)
-        Me.rbPromUtil.Name = "rbPromUtil"
-        Me.rbPromUtil.Size = New System.Drawing.Size(139, 18)
-        Me.rbPromUtil.TabIndex = 1
-        Me.rbPromUtil.TabStop = True
-        Me.rbPromUtil.Text = "Promotion Utilization"
-        Me.rbPromUtil.UseVisualStyleBackColor = True
-        '
-        'rbPromList
-        '
-        Me.rbPromList.AutoSize = True
-        Me.rbPromList.Location = New System.Drawing.Point(7, 22)
-        Me.rbPromList.Name = "rbPromList"
-        Me.rbPromList.Size = New System.Drawing.Size(102, 18)
-        Me.rbPromList.TabIndex = 0
-        Me.rbPromList.TabStop = True
-        Me.rbPromList.Text = "Promotion List"
-        Me.rbPromList.UseVisualStyleBackColor = True
+        Me.tbListPromo.Text = "List Of Promotion"
         '
         'PicBar_Promo
         '
         Me.PicBar_Promo.Image = CType(resources.GetObject("PicBar_Promo.Image"), System.Drawing.Image)
-        Me.PicBar_Promo.Location = New System.Drawing.Point(5, 125)
+        Me.PicBar_Promo.Location = New System.Drawing.Point(5, 76)
         Me.PicBar_Promo.Name = "PicBar_Promo"
         Me.PicBar_Promo.Size = New System.Drawing.Size(80, 80)
         Me.PicBar_Promo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
@@ -1112,7 +1075,7 @@ Partial Class Main
         'btnBrowPromo_dest
         '
         Me.btnBrowPromo_dest.Image = CType(resources.GetObject("btnBrowPromo_dest.Image"), System.Drawing.Image)
-        Me.btnBrowPromo_dest.Location = New System.Drawing.Point(310, 97)
+        Me.btnBrowPromo_dest.Location = New System.Drawing.Point(310, 48)
         Me.btnBrowPromo_dest.Name = "btnBrowPromo_dest"
         Me.btnBrowPromo_dest.Size = New System.Drawing.Size(26, 23)
         Me.btnBrowPromo_dest.TabIndex = 12
@@ -1120,14 +1083,14 @@ Partial Class Main
         '
         'txtProm_dest
         '
-        Me.txtProm_dest.Location = New System.Drawing.Point(76, 98)
+        Me.txtProm_dest.Location = New System.Drawing.Point(76, 49)
         Me.txtProm_dest.Name = "txtProm_dest"
         Me.txtProm_dest.Size = New System.Drawing.Size(229, 22)
         Me.txtProm_dest.TabIndex = 11
         '
         'txtPromo_src
         '
-        Me.txtPromo_src.Location = New System.Drawing.Point(76, 64)
+        Me.txtPromo_src.Location = New System.Drawing.Point(76, 15)
         Me.txtPromo_src.Name = "txtPromo_src"
         Me.txtPromo_src.Size = New System.Drawing.Size(229, 22)
         Me.txtPromo_src.TabIndex = 7
@@ -1135,7 +1098,7 @@ Partial Class Main
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(3, 103)
+        Me.Label16.Location = New System.Drawing.Point(3, 54)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(70, 14)
         Me.Label16.TabIndex = 10
@@ -1145,7 +1108,7 @@ Partial Class Main
         '
         Me.btnNeu_Promo.Enabled = False
         Me.btnNeu_Promo.Image = CType(resources.GetObject("btnNeu_Promo.Image"), System.Drawing.Image)
-        Me.btnNeu_Promo.Location = New System.Drawing.Point(343, 61)
+        Me.btnNeu_Promo.Location = New System.Drawing.Point(343, 12)
         Me.btnNeu_Promo.Name = "btnNeu_Promo"
         Me.btnNeu_Promo.Size = New System.Drawing.Size(54, 59)
         Me.btnNeu_Promo.TabIndex = 9
@@ -1154,7 +1117,7 @@ Partial Class Main
         'btnBrowProm_src
         '
         Me.btnBrowProm_src.Image = CType(resources.GetObject("btnBrowProm_src.Image"), System.Drawing.Image)
-        Me.btnBrowProm_src.Location = New System.Drawing.Point(310, 63)
+        Me.btnBrowProm_src.Location = New System.Drawing.Point(310, 14)
         Me.btnBrowProm_src.Name = "btnBrowProm_src"
         Me.btnBrowProm_src.Size = New System.Drawing.Size(26, 23)
         Me.btnBrowProm_src.TabIndex = 8
@@ -1163,7 +1126,7 @@ Partial Class Main
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(6, 69)
+        Me.Label17.Location = New System.Drawing.Point(6, 20)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(43, 14)
         Me.Label17.TabIndex = 0
@@ -1176,7 +1139,7 @@ Partial Class Main
         Me.tcListPromo.Location = New System.Drawing.Point(436, 239)
         Me.tcListPromo.Name = "tcListPromo"
         Me.tcListPromo.SelectedIndex = 0
-        Me.tcListPromo.Size = New System.Drawing.Size(411, 234)
+        Me.tcListPromo.Size = New System.Drawing.Size(411, 189)
         Me.tcListPromo.TabIndex = 6
         '
         'Label18
@@ -1191,6 +1154,9 @@ Partial Class Main
         Me.Label18.Text = "Promotion"
         '
         'bwDSS
+        '
+        '
+        'bwPromo
         '
         '
         'Main
@@ -1246,8 +1212,6 @@ Partial Class Main
         CType(Me.PicBar_DSM, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tbListPromo.ResumeLayout(False)
         Me.tbListPromo.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         CType(Me.PicBar_Promo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tcListPromo.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -1332,9 +1296,6 @@ Partial Class Main
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents BWDSM As System.ComponentModel.BackgroundWorker
     Friend WithEvents tbListPromo As System.Windows.Forms.TabPage
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents rbPromUtil As System.Windows.Forms.RadioButton
-    Friend WithEvents rbPromList As System.Windows.Forms.RadioButton
     Friend WithEvents PicBar_Promo As System.Windows.Forms.PictureBox
     Friend WithEvents btnBrowPromo_dest As System.Windows.Forms.Button
     Friend WithEvents txtProm_dest As System.Windows.Forms.TextBox
@@ -1359,5 +1320,6 @@ Partial Class Main
     Friend WithEvents txtDSS_src As System.Windows.Forms.TextBox
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents bwDSS As System.ComponentModel.BackgroundWorker
+    Friend WithEvents bwPromo As System.ComponentModel.BackgroundWorker
 
 End Class

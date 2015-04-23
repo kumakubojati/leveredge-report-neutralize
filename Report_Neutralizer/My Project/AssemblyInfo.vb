@@ -11,7 +11,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("Report_Neutralizer")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("Unilever Indonesia")> 
-<Assembly: AssemblyProduct("Report_Neutralizer")> 
+<Assembly: AssemblyProduct("Report Neutralizer")> 
 <Assembly: AssemblyCopyright("Copyright ©  2015")> 
 <Assembly: AssemblyTrademark("")> 
 
