@@ -72,133 +72,122 @@ Public Class Main
         Dim objApp As Excel.Application
         Dim objwBook As Excel.Workbook
         Dim objwSheet As Excel.Worksheet
-        'System.Threading.Thread.Sleep(100)
-        'BWOutMas.ReportProgress(CInt(1 / 100) * 100)
+        
 
         Try
             objApp = New Excel.Application
             objwBook = objApp.Workbooks.Open(txtoutmas_src.Text)
             objwSheet = objwBook.Worksheets("UID Outlet Master Report")
-            'System.Threading.Thread.Sleep(50)
-            'BWOutMas.ReportProgress(CInt(5 / 100) * 100)
-
+           
             objwSheet.UsedRange.UnMerge()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(10 / 100) * 100)
             objwSheet.UsedRange.WrapText = False
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(15 / 100) * 100)
             objwSheet.UsedRange.ColumnWidth = 15
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(20 / 100) * 100)
             objwSheet.UsedRange.RowHeight = 15
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(25 / 100) * 100)
 
-            objwSheet.Range("A1").Value = objwSheet.Range("C1").Value
-            objwSheet.Range("A1").EntireRow.Font.Bold = True
-            objwSheet.Range("A1").EntireRow.Font.Name = "Calibri"
-            objwSheet.Range("A1").EntireRow.Font.Size = "18"
-            objwSheet.Range("A1").EntireRow.RowHeight = 20
-            Dim conhead1 As String = objwSheet.Range("D4").Value & " " & objwSheet.Range("I4").Value & "; " & objwSheet.Range("L4").Value
-            conhead1 = conhead1 & " " & objwSheet.Range("Q4").Value & "; " & objwSheet.Range("U4").Value & " " & objwSheet.Range("Y4").Value
-            conhead1 = conhead1 & "; " & objwSheet.Range("AB4").Value & " " & objwSheet.Range("AE4").Value & "; " & objwSheet.Range("AH4").Value
-            conhead1 = conhead1 & " " & objwSheet.Range("AL4").Value & "; " & objwSheet.Range("AO4").Value & " " & objwSheet.Range("AS4").Value
-            conhead1 = conhead1 & "; " & objwSheet.Range("AV4").Value & " " & objwSheet.Range("AV4").Value
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(30 / 100) * 100)
+            Dim rg_head_cut1 As Excel.Range = objwSheet.Range("C1")
+            Dim rg_head_paste1 As Excel.Range = objwSheet.Range("A2")
+            rg_head_cut1.Select()
+            rg_head_cut1.Cut(rg_head_paste1)
 
-            Dim conhead2 As String = objwSheet.Range("B7").Value & " " & objwSheet.Range("H7").Value & "; " & objwSheet.Range("L7").Value & " " & objwSheet.Range("O7").Value
+            objwSheet.Range("A2").RowHeight = 27
 
-            objwSheet.Range("A4").Value = conhead1
+            Dim paramhead1, paramhead2, paramhead3, paramhead4 As String
+            paramhead1 = objwSheet.Range("D4").Value & " " & objwSheet.Range("J4").Value & "; "
+            paramhead1 = paramhead1 & objwSheet.Range("N4").Value & " " & objwSheet.Range("U4").Value & "; "
+
+            paramhead2 = objwSheet.Range("Z4").Value & " " & objwSheet.Range("AD4").Value & "; "
+            paramhead2 = paramhead2 & objwSheet.Range("AI4").Value & " " & objwSheet.Range("AL4").Value & "; "
+
+            paramhead3 = objwSheet.Range("AP4").Value & " " & objwSheet.Range("AT4").Value & "; "
+            paramhead3 = paramhead3 & objwSheet.Range("AX4").Value & " " & objwSheet.Range("BB4").Value & "; "
+            paramhead3 = paramhead3 & objwSheet.Range("BE4").Value & " " & objwSheet.Range("BI4").Value
+
+            paramhead4 = objwSheet.Range("B7").Value & " " & objwSheet.Range("I7").Value & "; "
+            paramhead4 = paramhead4 & objwSheet.Range("N7").Value & " " & objwSheet.Range("S7").Value
+
+            objwSheet.Range("A3").Value = paramhead1
+            objwSheet.Range("A3").EntireRow.Font.Name = "Calibri"
+            objwSheet.Range("A4").Value = paramhead2
             objwSheet.Range("A4").EntireRow.Font.Name = "Calibri"
-            objwSheet.Range("A7").Value = conhead2
-            objwSheet.Range("A7").EntireRow.Font.Name = "Calibri"
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(35 / 100) * 100)
+            objwSheet.Range("A5").Value = paramhead3
+            objwSheet.Range("A5").EntireRow.Font.Name = "Calibri"
+            objwSheet.Range("A6").Value = paramhead4
+            objwSheet.Range("A6").EntireRow.Font.Name = "Calibri"
+
+            objwSheet.Range("A10").EntireRow.Delete()
 
             Dim rg1 As Excel.Range = objwSheet.Range("B:D")
-            rg1.EntireColumn.Select()
-            rg1.EntireColumn.Delete()
-            'BWOutMas.ReportProgress(CInt(40 / 100) * 100)
-            'System.Threading.Thread.Sleep(100)
-            Dim rg2 As Excel.Range = objwSheet.Range("C:F")
-            rg2.EntireColumn.Select()
-            rg2.EntireColumn.Delete()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(45 / 100) * 100)
-            Dim rg3 As Excel.Range = objwSheet.Range("D:E")
-            rg3.EntireColumn.Select()
-            rg3.EntireColumn.Delete()
-            Dim rg4 As Excel.Range = objwSheet.Range("E:H")
-            rg4.EntireColumn.Select()
-            rg4.EntireColumn.Delete()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(50 / 100) * 100)
-            Dim rg5 As Excel.Range = objwSheet.Range("F:J")
-            rg5.EntireColumn.Select()
-            rg5.EntireColumn.Delete()
-            objwSheet.Range("G:G").EntireColumn.Delete()
-            Dim rg6 As Excel.Range = objwSheet.Range("H:J")
-            rg6.EntireColumn.Select()
-            rg6.EntireColumn.Delete()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(55 / 100) * 100)
-            objwSheet.Range("I:I").EntireColumn.Delete()
-            Dim rg7 As Excel.Range = objwSheet.Range("J:K")
-            rg7.EntireColumn.Select()
-            rg7.EntireColumn.Delete()
-            'System.Threading.Thread.Sleep(100)
-            Dim rg8 As Excel.Range = objwSheet.Range("L:M")
-            rg8.EntireColumn.Select()
-            rg8.EntireColumn.Delete()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(60 / 100) * 100)
-            Dim rg9 As Excel.Range = objwSheet.Range("M:N")
-            rg9.EntireColumn.Select()
-            rg9.EntireColumn.Delete()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(65 / 100) * 100)
-            objwSheet.Range("N:N").EntireColumn.Delete()
-            objwSheet.Range("O:O").EntireColumn.Delete()
-            Dim rg10 As Excel.Range = objwSheet.Range("P:Q")
-            rg10.EntireColumn.Select()
-            rg10.EntireColumn.Delete()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(70 / 100) * 100)
-            Dim rg11 As Excel.Range = objwSheet.Range("Q:R")
-            rg11.EntireColumn.Select()
-            rg11.EntireColumn.Delete()
-            System.Threading.Thread.Sleep(100)
-            objwSheet.Range("S:S").EntireColumn.Delete()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(75 / 100) * 100)
-            objwSheet.Range("A2").EntireRow.Delete()
-            objwSheet.Range("A4").EntireRow.Delete()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(80 / 100) * 100)
-            objwSheet.Range("A6").EntireRow.Delete()
-            objwSheet.Range("A6").EntireRow.Delete()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(85 / 100) * 100)
+            rg1.Select()
+            rg1.Delete()
+           
+            Dim rg2 As Excel.Range = objwSheet.Range("D:G")
+            rg2.Select()
+            rg2.Delete()
+         
+            Dim rg3 As Excel.Range = objwSheet.Range("F:G")
+            rg3.Select()
+            rg3.Delete()
 
+            objwSheet.Range("H:H").EntireColumn.Delete()
+
+            Dim rg4 As Excel.Range = objwSheet.Range("I:K")
+            rg4.Select()
+            rg4.Delete()
+          
+            Dim rg5 As Excel.Range = objwSheet.Range("K:M")
+            rg5.Select()
+            rg5.Delete()
+
+            Dim rg6 As Excel.Range = objwSheet.Range("L:N")
+            rg6.Select()
+            rg6.Delete()
+           
+            Dim rg7 As Excel.Range = objwSheet.Range("O:P")
+            rg7.Select()
+            rg7.Delete()
+
+            Dim rg8 As Excel.Range = objwSheet.Range("P:Q")
+            rg8.Select()
+            rg8.Delete()
+           
+            Dim rg9 As Excel.Range = objwSheet.Range("R:S")
+            rg9.Select()
+            rg9.Delete()
+          
+            Dim rg10 As Excel.Range = objwSheet.Range("T:U")
+            rg10.Select()
+            rg10.Delete()
+           
+            Dim rg11 As Excel.Range = objwSheet.Range("V:W")
+            rg11.Select()
+            rg11.Delete()
+
+            objwSheet.Range("W:W").EntireColumn.Delete()
+            objwSheet.Range("X:X").EntireColumn.Delete()
+
+            Dim rg12 As Excel.Range = objwSheet.Range("Y:Z")
+            rg12.Select()
+            rg12.Delete()
+
+            Dim rg13 As Excel.Range = objwSheet.Range("AA:AB")
+            rg13.Select()
+            rg13.Delete()
+
+            objwSheet.Range("AC:AC").EntireColumn.Delete()
+            objwSheet.Range("AZ:AZ").EntireColumn.Delete()
+          
             objwBook.SaveAs(txtDest_OutMas.Text)
             objwBook.Close()
             objApp.Quit()
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(90 / 100) * 100)
 
             System.Runtime.InteropServices.Marshal.ReleaseComObject(objwSheet)
             System.Runtime.InteropServices.Marshal.ReleaseComObject(objwBook)
             System.Runtime.InteropServices.Marshal.ReleaseComObject(objApp)
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(95 / 100) * 100)
+           
             objwSheet = Nothing
             objwBook = Nothing
             objApp = Nothing
-            MessageBox.Show("Neutralize Completed", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            'System.Threading.Thread.Sleep(100)
-            'BWOutMas.ReportProgress(CInt(100 / 100) * 100)
+            MessageBox.Show("Neutralize Completed", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)          
 
         Catch ex As Exception
             MessageBox.Show("Error on : " & ex.Message.ToString, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -206,9 +195,8 @@ Public Class Main
     End Sub
 
     Private Sub BWOutMas_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BWOutMas.ProgressChanged
-        'Invoke(Sub()
         Me.prgbar.Text = e.ProgressPercentage & "%"
-        'End Sub)
+
     End Sub
 
 
